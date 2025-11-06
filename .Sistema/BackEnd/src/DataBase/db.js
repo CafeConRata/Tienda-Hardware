@@ -55,18 +55,16 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
 
         db_crear.run(
             `
-            CREATE TABLE IF NOT EXISTS Productos(
+            CREATE TABLE IF NOT EXISTS Categorias(
                  Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 Nombre TEXT NOT NULL,
-                 Descripcion TEXT,
-                 Precio REAL NOT NULL,
-                 Stock INTEGER NOT NULL
+                 Nombre TEXT UNIQUE NOT NULL,
+                 Descripcion TEXT
             )`, (Error) => {
                 if (Error) {
                     console.error('Error al crea la tabla debido a:', Error)
                 }
                 else {
-                    console.log('Tabla Usuarios creada con Exito')
+                    console.log('Tabla Categorias creada con Exito')
                 }
                
 
