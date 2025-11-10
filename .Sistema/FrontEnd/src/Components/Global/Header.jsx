@@ -9,7 +9,7 @@ function Header({ cartCount, onCartClick }) {
             <div className="header-content">
                 <div className="logo">
                     <span className="logo-icon">⚙️</span>
-                    <h1>HardwarePro</h1>
+                    <h1>TechStore</h1>
                 </div>
 
                 <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
