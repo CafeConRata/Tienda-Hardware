@@ -10,6 +10,7 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
     }
     else {
         console.log('Se creo correctamente la base de datos')
+        // ----> Tabla para los datos de los usuarios que se registren
         db_crear.run(
             `
                 CREATE TABLE IF NOt EXISTS Usuarios(
@@ -33,6 +34,8 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
 
         )
 
+        // ----> Tabla para los datos de los productos
+
         db_crear.run(
             `
             CREATE TABLE IF NOT EXISTS Productos(
@@ -43,7 +46,7 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
                  Stock INTEGER NOT NULL
             )`, (Error) => {
                 if (Error) {
-                    console.error('Error al crea la tabla debido a:', Error)
+                    console.error('Error al crear la tabla debido a:', Error)
                 }
                 else {
                     console.log('Tabla Productos creada con Exito')
@@ -53,6 +56,8 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
             }
         )
 
+        // ----> Tabla para diferencias los productos por categoria
+
         db_crear.run(
             `
             CREATE TABLE IF NOT EXISTS Categorias(
@@ -61,7 +66,7 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
                  Descripcion TEXT
             )`, (Error) => {
                 if (Error) {
-                    console.error('Error al crea la tabla debido a:', Error)
+                    console.error('Error al crear la tabla debido a:', Error)
                 }
                 else {
                     console.log('Tabla Categorias creada con Exito')
@@ -71,6 +76,107 @@ const db_crear = new SQLite3.Database(SQLite3_Ubicacion, (Error) => {
             }
         )
 
+        db_crear.run(
+            `
+            CREATE TABLE IF NOT EXISTS Inventario(
+                 Id_inventario INTEGER PRIMARY KEY AUTOINCREMENT,
+                 Id_producto INTEGER
+                 Cantidad_Disponible INTEGER NOT NULL,
+                 Ubicacion TEXT,
+                 Fecha_Actualizacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+                 Stock_minimo INTEGER,
+                 FOREIGN KEY (Id_producto) REFERENCES Productos(Id_producto)
+
+            )`, (Error) => {
+                if (Error) {
+                    console.error('Error al crear la tabla debido a:', Error)
+                }
+                else {
+                    console.log('Tabla Inventario creada con Exito')
+                }
+               
+
+            }
+        )
+
+            db_crear.run(
+            `
+            CREATE TABLE IF NOT EXISTS Carrito(
+                 Id_carrito INTEGER PRIMARY KEY AUTOINCREMENT,
+                 Id_usuario INTEGER,
+                 Fecha_Creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+                 FOREIGN KEY (Id_usuario) REFERENCES Productos(Id_usuario)
+
+            )`, (Error) => {
+                if (Error) {
+                    console.error('Error al crear la tabla debido a:', Error)
+                }
+                else {
+                    console.log('Tabla Carrito creada con Exito')
+                }
+               
+
+            }
+        )
+
+        db_crear.run(
+            `
+            CREATE TABLE IF NOT EXISTS Detalles_del_Carrito(
+                 Id_detalle INTEGER PRIMARY KEY AUTOINCREMENT,
+                 Id_carrito INTEGER,
+                 Id_producto INTEGER,
+                 Cantidad INTEGER NOT NULL,
+                 FOREIGN KEY (Id_carrito) REFERENCES Carrito(Id_carrito),
+                 FOREIGN KEY (Id_producto) REFERENCES Productos(Id_producto)
+            )`, (Error) => {
+                if (Error) {
+                    console.error('Error al crear la tabla debido a:', Error)
+                }
+                else {
+                    console.log('Tabla Detalles_del_Carrito creada con Exito')
+                }
+               
+
+            }
+        )
+
+        db_crear.run(
+            `
+            CREATE TABLE IF NOT EXISTS Email(
+                 Id_email INTEGER PRIMARY KEY AUTOINCREMENT,
+                 Email TEXT,
+                 Asunto TEXT,
+                 Cuerpo TEXT
+ 
+            )`, (Error) => {
+                if (Error) {
+                    console.error('Error al crear la tabla debido a:', Error)
+                }
+                else {
+                    console.log('Tabla creada con Exito')
+                }
+               
+
+            }
+        )
+
+        db_crear.run(
+            `
+            CREATE TABLE IF NOT EXISTS Roles(
+                 Id_rol INTEGER PRIMARY KEY AUTOINCREMENT,
+                 Rol TEXT NOT NULL UNIQUE
+            )`, (Error) => {
+                if (Error) {
+                    console.error('Error al crear la tabla debido a:', Error)
+                }
+                else {
+                    console.log('Tabla Roles creada con Exito')
+                }
+               
+
+            }
+        )
+        
         
     }
 })
