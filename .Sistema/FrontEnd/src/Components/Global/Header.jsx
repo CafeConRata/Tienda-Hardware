@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 function Header({ cartCount, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
