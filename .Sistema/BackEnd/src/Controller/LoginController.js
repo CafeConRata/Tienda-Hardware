@@ -1,4 +1,5 @@
 const db = require('../DataBase/db')
+const {EncriptarPassword} = require('../Utils/HashPassword')
 
 const RegistrarUsuario = (req,res) =>{
     try{
@@ -20,10 +21,10 @@ const RegistrarUsuario = (req,res) =>{
         
 
 
-
+        const hash = EncriptarPassword(Password)
         const query = `INSERT INTO Usuarios(User,Name,Password)VALUES(?,?,?)`
 
-        db.run(query,[User,Password,Name],(Error)=>{
+        db.run(query,[User,hash,Name],(Error)=>{
             if(Error){
                 console.error('No se pudo insertar un Nuevo usuario debido a :',Error)
                 return res.status(401).json({Error: 'Error al crear ususario,Verifique los datos'})

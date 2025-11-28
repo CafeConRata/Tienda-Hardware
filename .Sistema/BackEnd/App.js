@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const PORT= process.env.PORT || 5000
 
-const LoginController = require('./src|Router/LoginController')
+const LoginController = require('./src/Routes/LoginRouter')
 App.use('/api',LoginController)
 
 App.use(express.json())
