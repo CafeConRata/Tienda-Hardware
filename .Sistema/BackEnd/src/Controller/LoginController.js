@@ -6,6 +6,20 @@ const RegistrarUsuario = (req,res) =>{
         if(!User || !Name || !Password){
            return res.status(401).json({Error: 'Campos Vacios'})
         }
+        
+        const query2 = `SELECT * FROM Usuarios WHERE User=?`
+        db.get(query2,[User],async (Error,Usuario)=>{
+            if(Error){
+                console.error('Error al buscar al usuario debido a :',Error)
+                return res.status(500).json({Errror: 'Error Interno: Server'})
+            }
+            if(Usuario){
+                return res.status(401).json({Error: 'El Usuario ya existe'})
+            }
+        })
+        
+
+
 
         const query = `INSERT INTO Usuarios(User,Name,Password)VALUES(?,?,?)`
 
