@@ -6,11 +6,12 @@ require('dotenv').config()
 
 const PORT= process.env.PORT || 5000
 
-const LoginController = require('./src/Routes/LoginRouter')
-App.use('/api',LoginController)
-
 App.use(express.json())
+const cors = require('cors')
+App.use(cors())
 
+const Router = require('./src/Router/LoginRouter')
+App.use('/api', Router)
 
 App.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)
