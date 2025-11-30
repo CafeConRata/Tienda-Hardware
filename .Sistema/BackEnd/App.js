@@ -10,7 +10,7 @@ App.use(express.json())
 const cors = require('cors')
 App.use(cors())
 
-const Router = require('./src/Router/LoginRouter')
+const Router = require('./src/Router/Login.Router')
 App.use('/api', Router)
 
 App.listen(PORT,()=>{
