@@ -3,12 +3,13 @@ const {EncriptarPassword} = require('../Utils/HashPassword')
 
 const RegistrarUsuario = async (req,res) =>{
     try{
-        const{ User, Name, Password }=req.body;
+        const{ User, Name, Password }=req.body
+
         if(!User || !Name || !Password){
            return res.status(400).json({Error: 'Todos los campos son obligatorios'})
         }
         
-        const query2 = 'SELECT * FROM Usuarios WHERE User=?'
+        const query2 = 'SELECT * FROM Usuarios WHERE User = ?'
         db.get(query2, [User], (Error, Tabla)=>{
             if(Error){
                 console.error('Error al buscar al usuario debido a:', Error)
@@ -24,7 +25,7 @@ const RegistrarUsuario = async (req,res) =>{
         const hash = await EncriptarPassword(Password)
         const query = 'INSERT INTO Usuarios (User, Name, Password) VALUES (?,?,?)'
 
-        db.run(query,[User, Name, Password],(Error)=>{
+        db.run(query,[User, Name, hash],(Error)=>{
             if(Error){
                 console.error('Error al ejecutar la consulta :',Error)
                 return res.status(500).json({ message: 'Error interno del servidor'})
