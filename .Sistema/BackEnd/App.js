@@ -1,5 +1,4 @@
 const Express = require('express')
-
 const App= Express();
 
 require('dotenv').config();
@@ -12,6 +11,9 @@ App.use(cors())
 
 const Router = require('./src/Router/Login.Router')
 App.use('/api', Router);
+
+const ProductoRouter = require("./src/Router/ProductosRouter");
+App.use("/cargar", ProductoRouter);
 
 App.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)
