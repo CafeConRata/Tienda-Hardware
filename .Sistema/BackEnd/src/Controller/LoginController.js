@@ -26,9 +26,9 @@ const RegistrarUsuario = async (req,res) =>{
 
         const hash = await EncriptarPassword(Password)
         const Token = GenerarToken(Email)
-        const query = 'INSERT INTO Usuarios (User, Name, Password, Email, Verificacion, TokenEmail) VALUES (?,?,?,?,?,?)';  
+        const query = 'INSERT INTO Usuarios (Id_rol, User, Name, Password, Email, Verificacion, TokenEmail) VALUES (?,?,?,?,?,?,?)';  
 
-        db.run(query,[User, Name, hash, Email, 0, Token], async (Error)=>{
+        db.run(query,[3, User, Name, hash, Email, 0, Token], async (Error)=>{
             if(Error){
                 console.error(' Error al ejecutar la consulta :',Error)
                 return res.status(500).json({ message: 'Error interno del servidor'})
@@ -40,6 +40,7 @@ const RegistrarUsuario = async (req,res) =>{
                     User: User,
                     Name: Name,
                     Email: Email,
+                    Id_rol: 3
                 })
         })
     }
