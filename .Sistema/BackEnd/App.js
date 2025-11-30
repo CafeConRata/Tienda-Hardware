@@ -1,17 +1,17 @@
-const express = require('express')
+const Express = require('express')
 
-const App= express()
+const App= Express();
 
-require('dotenv').config()
+require('dotenv').config();
 
 const PORT= process.env.PORT || 5000
 
-App.use(express.json())
+App.use(Express.json());
 const cors = require('cors')
 App.use(cors())
 
 const Router = require('./src/Router/Login.Router')
-App.use('/api', Router)
+App.use('/api', Router);
 
 App.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)

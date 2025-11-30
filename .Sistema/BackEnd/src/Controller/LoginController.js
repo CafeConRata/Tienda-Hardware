@@ -5,13 +5,13 @@ const {EncriptarPassword} = require('../Utils/HashPassword')
 
 const RegistrarUsuario = async (req,res) =>{
     try{
-        const{ User, Name, Password, Email }=req.body;
+        const{ User, Name, Password, Email } = req.body
 
-        if(!User || !Name || !Password || !Email){
+        if(!User || !Name || !Password || !Email) {
            return res.status(400).json({Error: 'Todos los campos son obligatorios'})
         }
         
-        const query2 = `SELECT * FROM Usuarios WHERE User = ?`
+        const query2 ='SELECT * FROM Usuarios WHERE User = ?'
         db.get(query2, [User], async (Error, Tabla)=>{
             if(Error){
                 console.error('Error al buscar al usuario debido a:', Error)
@@ -26,23 +26,26 @@ const RegistrarUsuario = async (req,res) =>{
 
         const hash = await EncriptarPassword(Password)
         const Token = GenerarToken(Email)
-        const query = `INSERT INTO Usuarios (User, Name, Password, Email, Verificacion, TokenEmail) VALUES (?,?,?,?,?,?)`;  
+        const query = 'INSERT INTO Usuarios (User, Name, Password, Email, Verificacion, TokenEmail) VALUES (?,?,?,?,?,?)';  
 
         db.run(query,[User, Name, hash, Email, 0, Token], async (Error)=>{
             if(Error){
-                console.error('Error al ejecutar la consulta :',Error)
+                console.error(' Error al ejecutar la consulta :',Error)
                 return res.status(500).json({ message: 'Error interno del servidor'})
             }
             await EnviarCorreo(Name, Email, Token)
                 return res.status(201).json({
-                    message:'Usuario Registrado Correctamente',
+                    message:'Usuario Registrado Exitosamente',
                     ID: this.lastID,
-                    User
+                    User: User,
+                    Name: Name,
+                    Email: Email,
                 })
         })
     }
     catch(error){
-        return res.status(500).json({Error: 'Error Interno: Server'})
+        console.error('Error en el registro del usuario debido a:', error)
+        res.status(500).json({Error: 'Error Interno: Server'})
 
     }
 
