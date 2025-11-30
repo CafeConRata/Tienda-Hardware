@@ -1,4 +1,6 @@
 const db = require('../DataBase/db')
+const {GenerarToken} = require('../Utils/Token')
+const {EnviarCorreo} = require('../Utils/EnviarEmails')
 const {EncriptarPassword} = require('../Utils/HashPassword')
 
 const RegistrarUsuario = async (req,res) =>{
@@ -23,20 +25,20 @@ const RegistrarUsuario = async (req,res) =>{
 
 
         const hash = await EncriptarPassword(Password)
-        const query = `INSERT INTO Usuarios (User, Name, Password, Email) VALUES (?,?,?,?)`  
+        const Token = GenerarToken(Email)
+        const query = `INSERT INTO Usuarios (User, Name, Password, Email, Verificacion, TokenEmail) VALUES (?,?,?,?,?,?)`;  
 
-        db.run(query,[User, Name, hash, Email],(Error)=>{
+        db.run(query,[User, Name, hash, Email, 0, Token], async (Error)=>{
             if(Error){
                 console.error('Error al ejecutar la consulta :',Error)
                 return res.status(500).json({ message: 'Error interno del servidor'})
             }
-            else{
-                return res.status(201).json(    {
+            await EnviarCorreo(Name, Email, Token)
+                return res.status(201).json({
                     message:'Usuario Registrado Correctamente',
-                    ID: undefined.lastID,
+                    ID: this.lastID,
                     User
                 })
-            }
         })
     }
     catch(error){
