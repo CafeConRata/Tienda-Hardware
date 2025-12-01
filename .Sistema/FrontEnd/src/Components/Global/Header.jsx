@@ -1,4 +1,5 @@
 import { useState } from "react"
+import LogoTipo from '../../../../../Marketing/TechStore/TechStore Reducido/1x/Mesa de Trabajo 1@1x.png'
 
 function Header({ cartCount, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -9,8 +10,8 @@ function Header({ cartCount, onCartClick }) {
         <div className="container">
             <div className="header-content">
                 <div className="logo">
-                    <span className="logo-icon">⚙️</span>
-                    <h1>TechStore</h1>
+                  <img src={LogoTipo} alt="" title="Logo" className="logo-icon" />
+                    {/* <span className="logo-icon">⚙️</span> */} 
                 </div>
 
                 <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
