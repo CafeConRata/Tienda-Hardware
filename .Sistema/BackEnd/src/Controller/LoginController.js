@@ -8,7 +8,7 @@ const RegistrarUsuario = async (req,res) =>{
         const{ User, Name, Password, Email } = req.body
 
         if(!User || !Name || !Password || !Email) {
-           return res.status(400).json({Error: 'Todos los campos son obligatorios'})
+            return res.status(400).json({Error: 'Todos los campos son obligatorios'})
         }
         
         const query2 ='SELECT * FROM Usuarios WHERE User = ?'

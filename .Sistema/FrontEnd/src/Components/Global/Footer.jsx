@@ -6,7 +6,7 @@ function Footer() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h4>HardwarePro</h4>
+              <h4>TechStore</h4>
               <p>Tu tienda de confianza para componentes de hardware de calidad premium.</p>
             </div>
 
@@ -49,15 +49,15 @@ function Footer() {
             <div className="footer-section">
               <h4>Contáctanos</h4>
               <ul>
-                <li>📧 info@hardwarepro.com</li>
-                <li>📞 +1 (555) 123-4567</li>
-                <li>📍 Calle Principal 123, Ciudad</li>
+                <li>📧 info@TechStore.com</li>
+                <li>📞 +54 11 3432-8432</li>
+                <li>📍 Ministro Brin 2999, Lanús</li>
               </ul>
             </div>
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2025 HardwarePro. Todos los derechos reservados.</p>
+            <p>&copy; 2025 TechStore. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
