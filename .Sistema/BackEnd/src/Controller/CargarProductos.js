@@ -75,4 +75,4 @@ const CargarProducto = async (req, res) => {
     }
 };
 
-module.exports = { CargarProducto };
+module.exports = { CargarProducto}

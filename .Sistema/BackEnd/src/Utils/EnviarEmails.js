@@ -18,7 +18,7 @@ async function EnviarCorreo(Nombre, Email, TokenEmail) {
     const opciones = {
         from: process.env.EMAIL_USER,
         to: Email,
-        subject: "Confirmar Tu Cuenta Creada 😊",
+        subject: "Utilize esto para confirmar Su Cuenta y Crearla",
         // ---> Cuerpo del correo
         html: `
       <div style="
@@ -35,14 +35,14 @@ async function EnviarCorreo(Nombre, Email, TokenEmail) {
           box-shadow: 0 4px 12px rgba(0,0,0,0.1);
           overflow: hidden;
         ">
-          <div style="background-color: #007bff; color: white; padding: 20px 30px;">
-            <h2 style="margin: 0;">¡Bienvenido a GAREIS S.A ! 🎉</h2>
+          <div style="background-color: #3399C; color: white; padding: 20px 30px;">
+            <h2 style="margin: 0;">¡Bienvenido a Tech Store !</h2>
           </div>
 
           <div style="padding: 30px;">
             <p style="font-size: 16px;">Hola <strong>${Nombre}</strong>,</p>
             <p style="font-size: 15px; line-height: 1.6;">
-              Gracias por registrarte en <strong>GAREIS S.A </strong>.  
+              Gracias por registrarte en <strong> Tech Store </strong>.  
               Para activar tu cuenta y comenzar a disfrutar de todas las funcionalidades, por favor verifica tu correo electrónico haciendo clic en el siguiente botón:
             </p>
 
@@ -83,7 +83,7 @@ async function EnviarCorreo(Nombre, Email, TokenEmail) {
           </div>
 
           <div style="background-color: #f0f0f0; text-align: center; padding: 15px; font-size: 12px; color: #888;">
-            © ${new Date().getFullYear()} Gareis S.A. Todos los derechos reservados.
+            © ${new Date().getFullYear()} Tech Store Todos los derechos reservados.
           </div>
         </div>
       </div>
