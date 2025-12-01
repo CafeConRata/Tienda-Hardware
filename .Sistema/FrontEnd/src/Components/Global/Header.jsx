@@ -1,5 +1,6 @@
 import { useState } from "react"
 import LogoTipo from '../../../../../Marketing/TechStore/TechStore Reducido/1x/Mesa de Trabajo 1@1x.png'
+import { Link } from 'react-router-dom';
 
 function Header({ cartCount, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -15,10 +16,8 @@ function Header({ cartCount, onCartClick }) {
                 </div>
 
                 <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
-                    <a href="#home">Inicio</a>
-                    <a href="#products">Productos</a>
-                    <a href="#about">Sobre nosotros</a>
-                    <a href="#contact">Contacto</a>
+                    <Link to="/">Home</Link>
+                    <Link to="/Register">Register</Link>
                 </nav>
 
                 <div className="header-actions">
