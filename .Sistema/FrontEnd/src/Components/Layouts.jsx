@@ -1,36 +1,21 @@
-import Header from './Global/Header'
+import Footer from './Global/Footer';
+import Hero from './Global/Hero';
+import Header from './Global/Header';
+import Register from './Pages/Register.jsx';
 import './Layouts.css'
-import Footer from './Global/Footer'
-// import Cart from './Global/Cart'
-import Hero from './Global/Hero'
-// import ProductGrid from './Global/ProductGrid'
-// import ProductCard from "./Global/ProductCard"
-import Register from './Pages/Register'
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
-import axios from 'axios'
-import { useState } from 'react'
-// import { RegistrarUsuario } from '../backend/api'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function Layouts() {
     return (
-        <>
         <Router>
             <Header />
-            {/* Sobre el Encabezado Indicamos las rutas */}
-            <Routes>
-                {/* Indicamos la Ruta de Navegacion */}
-                <Route path="/VerTabla" element={<VerTabla />} />
-                <Route path="/RegistrarAlumnos" element={<RegistrarAlumnos />} />
-            </Routes>
-        </Router>
-            <Header />
-            <Hero />    
+            <Hero />
+                <Routes>
+                    <Route path="/RegistrarUser" element={<Register />} />
+                </Routes>
             <Footer />
-            {/* <Cart /> */}
-            {/* <ProductCard /> */}
-            {/* <ProductGrid /> */}
-        </>
-    )
+        </Router>
+);
 }
 
-export default Layouts
+export default Layouts;
