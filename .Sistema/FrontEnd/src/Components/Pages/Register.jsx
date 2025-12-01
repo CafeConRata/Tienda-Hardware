@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios'
+import "../style/Register.css"
 
 
 export default function Register() {
@@ -34,24 +35,92 @@ export default function Register() {
 
 return (
     <>
-        <form onSubmit={handleSubmit}>
-            <label>Usuario</label>
-            <input type="text" value={User} onChange={(e) => setUser(e.target.value)} />
+    <main className="registration-container">
+        <div className="registration-wrapper">
+            <div className="registration-card">
+                <div className="registration-header">
+                    <h1 className="registration-title">Crear Cuenta</h1>
+                    <p className="registration-subtitle">Completa el formulario para registrarte</p>
+                </div>
 
-            <label>Email</label>
-            <input type="text" value={Email} onChange={(e) => setEmail(e.target.value)} />
+                <form onSubmit={handleSubmit} className="registration-form">
+                    <div className="form-group">
+                        <label htmlFor="user" className="form-label">
+                        Usuario
+                        </label>
+                        <input
+                        id="user"
+                        type="text"
+                        value={User}
+                        onChange={(e) => setUser(e.target.value)}
+                        className="form-input"
+                        placeholder="Ingresa tu usuario"
+                        required
+                        />
+                    </div>
 
-            <label>Nombre</label>
-            <input type="text" value={Name} onChange={(e) => setName(e.target.value)} />
+                    <div className="form-group">
+                        <label htmlFor="email" className="form-label">
+                        Email
+                        </label>
+                        <input
+                        id="email"
+                        type="email"
+                        value={Email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="form-input"
+                        placeholder="tu@email.com"
+                        required
+                        />
+                    </div>
 
-            <label   label>Contraseña</label>
-            <input type="password" value={Password} onChange={(e)=> setPassword(e.target.value)} />
+                    <div className="form-group">
+                        <label htmlFor="name" className="form-label">
+                        Nombre
+                        </label>
+                        <input
+                        id="name"
+                        type="text"
+                        value={Name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="form-input"
+                        placeholder="Tu nombre completo"
+                        required
+                        />
+                    </div>
 
-            <input type="submit" value="Registrar"/>
-        </form>
+                    <div className="form-group">
+                        <label htmlFor="password" className="form-label">
+                        Contraseña
+                        </label>
+                        <input
+                        id="password"
+                        type="password"
+                        value={Password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="form-input"
+                        placeholder="••••••••"
+                        required
+                        />
+                    </div>
 
-        {Mensaje && <h1 style={{color:'green'}}>{Mensaje}</h1>}
-        </>
+                    <button type="submit" className="submit-button">
+                    Registrar
+                    </button>
+                </form>
+
+                <div className="registration-footer">
+                    <p className="footer-text">
+                    ¿Ya tienes una cuenta?{" "}
+                    <a href="#" className="footer-link">
+                    Inicia sesión
+                    </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    </>
     );
 }
 

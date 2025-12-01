@@ -17,7 +17,7 @@ function Header({ cartCount, onCartClick }) {
 
                 <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
                     <Link to="/">Home</Link>
-                    <Link to="/Register">Register</Link>
+                    <Link to="/RegistrarUser">Register</Link>
                 </nav>
 
                 <div className="header-actions">
