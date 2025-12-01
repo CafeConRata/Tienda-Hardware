@@ -15,7 +15,7 @@ function Layouts() {
     return (
         <>
         <Router>
-            <Encabezado />
+            <Header />
             {/* Sobre el Encabezado Indicamos las rutas */}
             <Routes>
                 {/* Indicamos la Ruta de Navegacion */}
