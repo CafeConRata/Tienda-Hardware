@@ -75,30 +75,4 @@ const CargarProducto = async (req, res) => {
     }
 };
 
-const ActualizarProducto = (req, res) => {
-    const { Id_producto } = req.params
-    const { Nombre, Descripcion, Precio, Stock } = req.body
-
-    const query = `
-        UPDATE Productos 
-        SET Nombre = ?, Descripcion = ?, Precio = ?, Stock = ?
-        WHERE Id_producto = ?
-    `
-
-    db.run(query,
-        [Nombre, Descripcion, Precio, Stock],
-        function (error) {
-            if (error) {
-                return res.status(500).json({ error: "Error al actualizar producto" })
-            }
-
-            if (this.changes === 0) {
-                return res.status(404).json({ error: "Producto no encontrado" })
-            }
-
-            return res.status(200).json({ message: "Producto actualizado correctamente" })
-        }
-    )
-}
-
-module.exports = { CargarProducto, ActualizarProducto };
+module.exports = { CargarProducto}

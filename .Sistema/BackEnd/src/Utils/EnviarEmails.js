@@ -18,7 +18,7 @@ async function EnviarCorreo(Nombre, Email, TokenEmail) {
     const opciones = {
         from: process.env.EMAIL_USER,
         to: Email,
-        subject: "Confirmar Tu Cuenta Creada 😊",
+        subject: "Utilize esto para confirmar Su Cuenta y Crearla",
         // ---> Cuerpo del correo
         html: `
       <div style="
@@ -36,7 +36,7 @@ async function EnviarCorreo(Nombre, Email, TokenEmail) {
           overflow: hidden;
         ">
           <div style="background-color: #007bff; color: white; padding: 20px 30px;">
-            <h2 style="margin: 0;">¡Bienvenido a GAREIS S.A ! 🎉</h2>
+            <h2 style="margin: 0;">¡Bienvenido a Tech Store ! 🎉</h2>
           </div>
 
           <div style="padding: 30px;">
@@ -83,7 +83,7 @@ async function EnviarCorreo(Nombre, Email, TokenEmail) {
           </div>
 
           <div style="background-color: #f0f0f0; text-align: center; padding: 15px; font-size: 12px; color: #888;">
-            © ${new Date().getFullYear()} Gareis S.A. Todos los derechos reservados.
+            © ${new Date().getFullYear()} Tech Store Todos los derechos reservados.
           </div>
         </div>
       </div>

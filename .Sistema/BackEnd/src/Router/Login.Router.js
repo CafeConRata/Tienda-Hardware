@@ -89,7 +89,7 @@ Rutas.get('/verificacion/:Token', (req, res) => {
                     <div class="icon">✅</div>
                     <h1>Cuenta Verificada Correctamente</h1>
                     <p>¡Felicitaciones, <strong>${decoded.Email}</strong>!<br>
-                    Tu cuenta ha sido activada exitosamente. Ya podés iniciar sesión y disfrutar de todas las funciones.</p>
+                    Su cuenta se ha activada exitosamente. Ya podés iniciar sesión y disfrutar de nuestros servicios y productos.</p>
                     <a href="http://localhost:3000/login">Ir al Inicio de Sesión</a>
                 </div>
                 </body>
