@@ -19,8 +19,9 @@ function Header({ cartCount }) {
             </div>
 
             <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
-              <Link to="/">Home</Link>
+              <Link to="/Inicio">Home</Link>
               <Link to="/RegistrarUser">Register</Link>
+              <Link to="/RegistrarProducto">Registrar Producto</Link>
             </nav>
 
             <div className="header-actions">
