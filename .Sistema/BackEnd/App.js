@@ -9,7 +9,10 @@ App.use(Express.json());
 const cors = require('cors')
 App.use(cors())
 
-const Router = require('./src/Router/Login.Router')
+const LoginRouter = require("./src/Router/LoginRouter");
+App.use('/api', LoginRouter);
+
+const Router = require('./src/Router/RegisterRouter')
 App.use('/api', Router);
 
 const ProductoRouter = require("./src/Router/ProductosRouter");

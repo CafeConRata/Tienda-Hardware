@@ -1,55 +1,50 @@
-const db = require('../DataBase/db')
-const {GenerarToken} = require('../Utils/Token')
-const {EnviarCorreo} = require('../Utils/EnviarEmails')
-const {EncriptarPassword} = require('../Utils/HashPassword')
+const db = require('../DataBase/db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const RegistrarUsuario = async (req,res) =>{
-    try{
-        const{ User, Name, Password, Email } = req.body
+async function Login (req, res) {
+    const { Email, Password } = req.body;
 
-        if(!User || !Name || !Password || !Email) {
-            return res.status(400).json({Error: 'Todos los campos son obligatorios'})
-        }
-        
-        const query2 ='SELECT * FROM Usuarios WHERE User = ?'
-        db.get(query2, [User], async (Error, Tabla)=>{
-            if(Error){
-                console.error('Error al buscar al usuario debido a:', Error)
-                return res.status(500).json({ message: 'Error Interno: Server'})
+    try {
+        // 1. Buscar usuario
+        const sql = "SELECT * FROM usuarios WHERE Email = ?";
+        db.query(sql, [Email], async (err, result) => {
+            if (err) return res.status(500).json({ error: "Error en el servidor" });
+
+            if (result.length === 0) {
+                return res.status(404).json({ error: "Usuario no encontrado" });
             }
-            if(Tabla){
-                return res.status(409).json({ message: 'El Usuario ya existe'})
+
+            const usuario = result[0];
+
+            // 2. Validar contraseña
+            const passwordValida = await bcrypt.compare(Password, usuario.password);
+
+            if (!passwordValida) {
+                return res.status(401).json({ error: "Contraseña incorrecta" });
             }
-        })
-        
 
-
-        const hash = await EncriptarPassword(Password)
-        const Token = GenerarToken(Email)
-        const query = 'INSERT INTO Usuarios (Id_rol, User, Name, Password, Email, Verificacion, TokenEmail) VALUES (?,?,?,?,?,?,?)';  
-
-        db.run(query,[3, User, Name, hash, Email, 0, Token], async (Error)=>{
-            if(Error){
-                console.error(' Error al ejecutar la consulta :',Error)
-                return res.status(500).json({ message: 'Error interno del servidor'})
+            // 3. Revisar si el email está verificado
+            if (usuario.verificado === 0) {
+                return res.status(401).json({ error: "Debes verificar tu email antes de iniciar sesión" });
             }
-            await EnviarCorreo(Name, Email, Token)
-                return res.status(201).json({
-                    message:'Usuario Registrado Exitosamente',
-                    ID: this.lastID,
-                    User: User,
-                    Name: Name,
-                    Email: Email,
-                    Id_rol: 3
-                })
-        })
+
+            // 4. Crear token JWT
+            const token = jwt.sign(
+                { id: Id.usuario, EmaiL: usuario.email },
+                process.env.JWT_SECRET,
+                { expiresIn: "7d" }
+            );
+
+            return res.status(200).json({
+                mensaje: "Login exitoso",
+                token: token
+            });
+        });
+
+    } catch (error) {
+        return res.status(500).json({ error: "Error al iniciar sesión" });
     }
-    catch(error){
-        console.error('Error en el registro del usuario debido a:', error)
-        res.status(500).json({Error: 'Error Interno: Server'})
-
-    }
-
 }
 
-module.exports={RegistrarUsuario}
+module.exports = { Login };

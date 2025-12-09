@@ -1,6 +1,6 @@
 const Express = require('express')
 const Rutas = Express.Router()
-const {RegistrarUsuario} = require('../Controller/LoginController')
+const {RegistrarUsuario} = require('../Controller/RegisterController')
 const {VerificarToken} = require('../Utils/Token')
 const db = require('../DataBase/db')
 
