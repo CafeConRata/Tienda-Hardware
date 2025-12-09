@@ -1,16 +1,19 @@
-const express = require('express')
+const Express = require('express')
+const App= Express();
 
-const App= express()
-
-require('dotenv').config()
+require('dotenv').config();
 
 const PORT= process.env.PORT || 5000
 
-const LoginController = require('./src/Routes/LoginRouter')
-App.use('/api',LoginController)
+App.use(Express.json());
+const cors = require('cors')
+App.use(cors())
 
-App.use(express.json())
+const Router = require('./src/Router/Login.Router')
+App.use('/api', Router);
 
+const ProductoRouter = require("./src/Router/ProductosRouter");
+App.use("/cargar", ProductoRouter);
 
 App.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)
