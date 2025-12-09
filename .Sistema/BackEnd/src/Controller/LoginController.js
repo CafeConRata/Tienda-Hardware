@@ -6,21 +6,23 @@ async function Login (req, res) {
     const { Email, Password } = req.body;
 
     try {
-        // 1. Buscar usuario
-        const sql = "SELECT * FROM usuarios WHERE Email = ?";
-        db.query(sql, [Email], async (err, result) => {
-            if (err) return res.status(500).json({ error: "Error en el servidor" });
 
-            if (result.length === 0) {
+        if (!Email || !Password) {
+            return res.status(400).json({ error: "Email y contraseña son obligatorios"});
+        }
+        // 1. Buscar usuario
+        const sql = "SELECT * FROM Usuarios WHERE Email = ?";
+        db.get(sql, [Email], async (error, usuario) => {
+            if (error) return res.status(500).json({ error: "Error en el servidor" });
+
+            if (!usuario) {
                 return res.status(404).json({ error: "Usuario no encontrado" });
             }
 
-            const usuario = result[0];
-
             // 2. Validar contraseña
-            const passwordValida = await bcrypt.compare(Password, usuario.password);
+            const PasswordValida = await bcrypt.compare(Password, usuario.Password);
 
-            if (!passwordValida) {
+            if (!PasswordValida) {
                 return res.status(401).json({ error: "Contraseña incorrecta" });
             }
 
@@ -31,7 +33,7 @@ async function Login (req, res) {
 
             // 4. Crear token JWT
             const token = jwt.sign(
-                { id: Id.usuario, EmaiL: usuario.email },
+                { Id: usuario.Id_usuario, Email: usuario.Email },
                 process.env.JWT_SECRET,
                 { expiresIn: "7d" }
             );
