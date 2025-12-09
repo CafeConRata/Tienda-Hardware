@@ -1,6 +1,6 @@
 const db = require('../DataBase/db');
 
-const CargarProducto = async (req, res) => {
+const CargarProductos = async (req, res) => {
     try {
         const { Nombre, Descripcion, Precio, Stock } = req.body;
 
@@ -29,7 +29,7 @@ const CargarProducto = async (req, res) => {
         db.get(queryBuscar, [Nombre], (Error, productoExistente) => {
 
             if (Error) {
-                console.error('Error al buscar el producto:', Error);
+                console.log('Error al buscar el producto:', Error);
                 return res.status(500).json({
                     message: 'Error Interno: Server'
                 });
@@ -42,9 +42,9 @@ const CargarProducto = async (req, res) => {
             }
 
             // 4. Insertar producto si no existe
-            const query ='INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES (?,?,?,?)';
+            const query2 ='INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES (?,?,?,?)';
 
-            db.run(query,
+            db.run(query2,
                 [Nombre, Descripcion, Precio, Stock],
                 function (Error) {
 
@@ -75,4 +75,43 @@ const CargarProducto = async (req, res) => {
     }
 };
 
-module.exports = { CargarProducto}
+const ActualizarProducto = (req, res) => {
+    const { id } = req.params;
+    const { Nombre, Descripcion, Precio, Stock } = req.body;
+
+    const query = `
+        UPDATE Productos
+        SET Nombre = ?, Descripcion = ?, Precio = ?, Stock = ?
+        WHERE Id_producto = ?
+    `;
+
+    db.run(query, [Nombre, Descripcion, Precio, Stock, id], function(err) {
+        if (err) return res.status(500).json({ error: "Error al actualizar producto" });
+
+        if (this.changes === 0)
+            return res.status(404).json({ error: "Producto no encontrado" });
+
+        res.json({ mensaje: "Producto actualizado correctamente" });
+    });
+};
+
+const EliminarProducto = (req, res) => {
+    const { id } = req.params;
+
+    const query = `DELETE FROM Productos WHERE Id_producto = ?`;
+
+    db.run(query, [id], function(err) {
+        if (err) return res.status(500).json({ error: "Error al eliminar producto" });
+
+        if (this.changes === 0)
+            return res.status(404).json({ error: "Producto no encontrado" });
+
+        res.json({ mensaje: "Producto eliminado correctamente" });
+    });
+};
+
+module.exports = { 
+     CargarProductos,
+     ActualizarProducto,
+     EliminarProducto
+    };

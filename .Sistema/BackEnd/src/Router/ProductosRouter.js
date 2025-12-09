@@ -1,7 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { CargarProducto} = require('../Controller/CargarProductos');
+const {
+    CargarProductos,
+    ActualizarProducto,
+    EliminarProducto
+} = require('../Controller/CargarProductos');
 
-router.post('/CargarUnProducto', CargarProducto);
+router.post('/CargarUnProducto', CargarProductos);
+
+router.put('/productos/:id', ActualizarProducto);
+
+router.delete('/productos/:id', EliminarProducto);
 
 module.exports = router;
