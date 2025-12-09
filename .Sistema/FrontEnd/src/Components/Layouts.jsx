@@ -3,6 +3,7 @@ import Footer from './Global/Footer';
 import Header from './Global/Header';
 import Register from './Pages/Register.jsx';
 import Cart from './Pages/Cart.jsx';
+import RegistrarProducto from './Pages/RegistrarProducto.jsx';
 import './Layouts.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Pages/home.jsx';
@@ -14,6 +15,7 @@ function Layouts() {
                 <Routes>
                     <Route path="/Inicio" element={<Home />} />
                     <Route path="/RegistrarUser" element={<Register />} />
+                    <Route path="/RegistrarProducto" element={<RegistrarProducto />} />
                     <Route path="/Carrito" element={<Cart />} />
                 </Routes>
             <Footer />
