@@ -1,17 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import "../style/RegistrarProducto.css"
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import "../style/RegistrarProducto.css";
 
 export default function LoginForm() {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
-        setSuccess("");
 
         try {
             const response = await axios.post("http://localhost:3000/api/login", {
@@ -21,9 +22,24 @@ export default function LoginForm() {
 
             const { token, mensaje } = response.data;
             localStorage.setItem("authToken", token);
-            setSuccess(mensaje);
+
+            Swal.fire({
+                icon: "success",
+                title: "¡Bienvenido!",
+                text: mensaje || "Inicio de sesión exitoso",
+                confirmButtonColor: "#3085d6",
+            }).then(() => {
+                navigate("/Inicio"); // Redirige a la ruta correcta
+            });
         } catch (err) {
             setError(err.response?.data?.error || "Error al iniciar sesión");
+
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: err.response?.data?.error || "Error al iniciar sesión",
+                confirmButtonColor: "#d33",
+            });
         }
     };
 
@@ -49,7 +65,6 @@ export default function LoginForm() {
             </form>
 
             {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-            {success && <p style={{ color: "green", textAlign: "center" }}>{success}</p>}
         </div>
     );
 }
