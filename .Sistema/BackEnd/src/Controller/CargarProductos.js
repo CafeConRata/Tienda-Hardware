@@ -3,9 +3,10 @@ const db = require('../DataBase/db');
 const CargarProductos = async (req, res) => {
     try {
         const { Nombre, Descripcion, Precio, Stock } = req.body;
+        const imagen = req.file ? req.file.filename : null;
 
         // 1. Validar campos obligatorios
-        if (!Nombre || !Descripcion || !Precio || !Stock) {
+        if (!Nombre || !Descripcion || !Precio || !Stock || !imagen ) {
             return res.status(400).json({
                 Error: 'Todos los campos son obligatorios'
             });
@@ -42,10 +43,10 @@ const CargarProductos = async (req, res) => {
             }
 
             // 4. Insertar producto si no existe
-            const query2 ='INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES (?,?,?,?)';
+            const query2 ='INSERT INTO Productos (Nombre, Descripcion, Precio, Stock, imagen) VALUES (?,?,?,?,?)';
 
             db.run(query2,
-                [Nombre, Descripcion, Precio, Stock],
+                [Nombre, Descripcion, Precio, Stock, imagen],
                 function (Error) {
 
                     if (Error) {
@@ -78,15 +79,16 @@ const CargarProductos = async (req, res) => {
 const ActualizarProducto = (req, res) => {
     const { id } = req.params;
     const { Nombre, Descripcion, Precio, Stock } = req.body;
+    const imagen = req.file ? req.file.filename : null;
 
     const query = `
         UPDATE Productos
-        SET Nombre = ?, Descripcion = ?, Precio = ?, Stock = ?
+        SET Nombre = ?, Descripcion = ?, Precio = ?, Stock = ?, imagen = COALESCE(?, imagen)
         WHERE Id_producto = ?
     `;
 
-    db.run(query, [Nombre, Descripcion, Precio, Stock, id], function(err) {
-        if (err) return res.status(500).json({ error: "Error al actualizar producto" });
+    db.run(query, [Nombre, Descripcion, Precio, Stock, imagen, id], function(error) {
+        if (error) return res.status(500).json({ error: "Error al actualizar producto" });
 
         if (this.changes === 0)
             return res.status(404).json({ error: "Producto no encontrado" });
@@ -100,8 +102,8 @@ const EliminarProducto = (req, res) => {
 
     const query = `DELETE FROM Productos WHERE Id_producto = ?`;
 
-    db.run(query, [id], function(err) {
-        if (err) return res.status(500).json({ error: "Error al eliminar producto" });
+    db.run(query, [id], function(error) {
+        if (error) return res.status(500).json({ error: "Error al eliminar producto" });
 
         if (this.changes === 0)
             return res.status(404).json({ error: "Producto no encontrado" });
