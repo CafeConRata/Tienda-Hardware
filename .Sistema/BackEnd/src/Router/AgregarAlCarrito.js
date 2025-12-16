@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { 
         AgregarAlCarrito, 
-        VerCarrito
+        verCarrito,
     } = require('../Controller/CarritoController');
 const verificarToken = require('../Middlewares/auth');
 
