@@ -3,10 +3,11 @@ const db = require('../DataBase/db');
 const AgregarAlCarrito = (req, res) => {
     const { Id_producto, Cantidad } = req.body;
     const Id_usuario = req.usuario.id; // desde JWT
+    console.log(req.body)
 
-    if (!Id_producto || !Cantidad) {
-        return res.status(400).json({ error: "Datos incompletos" });
-    }
+    // if (!Id_producto || !Cantidad) {
+    //     return res.status(400).json({ error: "Datos incompletos" });
+    // }
 
     // 1. Buscar carrito
     db.get(

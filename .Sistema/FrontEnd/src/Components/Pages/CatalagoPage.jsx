@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CatalogoProductos from "./CatalogoProductos";
+import CatalogoProductos from "../Global/CatalogoProductos";
 import "../style/Catalogo.css";
 
 function CatalogoPage() {
