@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "../style/RegistrarProducto.css";
+import "../style/Formularios.css";
 import { Link } from "react-router-dom";
 
 export default function Register() {
