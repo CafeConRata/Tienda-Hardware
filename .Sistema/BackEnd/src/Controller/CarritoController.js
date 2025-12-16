@@ -19,7 +19,7 @@ const AgregarAlCarrito = (req, res) => {
             if (!carrito) {
                 // 2. Crear carrito
                 db.run(
-                    "INSERT INTO Carrito (Id_usuario, Fecha_Creacion) VALUES (?, datetime('now'))",
+                    "INSERT INTO Carrito (Id_usuario, Fecha_Creacion, Cantidad, Total) VALUES (?, datetime('now'))",
                     [Id_usuario],
                     function (error) {
                         if (error) return res.status(500).json({ error: "Error creando carrito" });
