@@ -3,6 +3,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "../style/RegistrarProducto.css";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
     const [Email, setEmail] = useState("");
@@ -65,6 +66,15 @@ export default function LoginForm() {
             </form>
 
             {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+
+            <div className="registration-footer">
+                <p className="footer-text">
+                    ¿No tienes una Cuenta?{" "}
+                    <Link to="/RegistrarUser" className="footer-link">
+                        Crear Cuenta
+                    </Link>
+                </p>
+            </div>
         </div>
     );
 }
