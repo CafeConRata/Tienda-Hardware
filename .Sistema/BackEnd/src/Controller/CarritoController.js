@@ -5,11 +5,11 @@ const AgregarAlCarrito = (req, res) => {
     const Id_usuario = req.usuario.id; // desde JWT
     console.log(req.body)
 
-    // if (!Id_producto || !Cantidad) {
-    //     return res.status(400).json({ error: "Datos incompletos" });
-    // }
+    if (!Id_producto || !Cantidad) {
+        return res.status(400).json({ error: "Datos incompletos" });
+    }
 
-    // 1. Buscar carrito
+    // // // 1. Buscar carrito
     db.get(
         "SELECT * FROM Carrito WHERE Id_usuario = ?",
         [Id_usuario],
