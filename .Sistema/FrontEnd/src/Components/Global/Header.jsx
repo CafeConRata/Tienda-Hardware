@@ -20,6 +20,7 @@ function Header({ cartCount }) {
 
             <nav className={`nav ${isMenuOpen ? "active" : ""}`}>
               <Link to="/Inicio">Home</Link>
+              <Link to="/CatalogoPage">Catalogo de Productos</Link>
               <Link to="/RegistrarUser">Register</Link>
               <Link to="/LoginForm">Iniciar Sesion</Link>
               <Link to="/RegistrarProducto">Registrar Producto</Link>
