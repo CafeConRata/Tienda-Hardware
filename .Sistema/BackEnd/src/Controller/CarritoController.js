@@ -12,16 +12,16 @@ const AgregarAlCarrito = (req, res) => {
     db.get(
         "SELECT * FROM Carrito WHERE Id_usuario = ?",
         [Id_usuario],
-        (err, carrito) => {
-            if (err) return res.status(500).json({ error: "Error servidor" });
+        (error, carrito) => {
+            if (error) return res.status(500).json({ error: "Error servidor" });
 
             if (!carrito) {
                 // 2. Crear carrito
                 db.run(
                     "INSERT INTO Carrito (Id_usuario, Fecha_Creacion) VALUES (?, datetime('now'))",
                     [Id_usuario],
-                    function (err) {
-                        if (err) return res.status(500).json({ error: "Error creando carrito" });
+                    function (error) {
+                        if (error) return res.status(500).json({ error: "Error creando carrito" });
 
                         agregarDetalle(this.lastID);
                     }
@@ -34,14 +34,14 @@ const AgregarAlCarrito = (req, res) => {
 
     function agregarDetalle(Id_carrito) {
         db.get(
-            "SELECT * FROM detalles_de_Carrito WHERE Id_carrito = ? AND Id_productos = ?",
+            "SELECT * FROM detalles_de_Carrito WHERE Id_carrito = ? AND Id_producto = ?",
             [Id_carrito, Id_producto],
-            (err, detalle) => {
-                if (err) return res.status(500).json({ error: "Error servidor" });
+            (error, detalle) => {
+                if (error) return res.status(500).json({ error: "Error servidor" });
 
                 if (detalle) {
                     db.run(
-                        "UPDATE detalles_de_Carrito SET Cantidad = Cantidad + ? WHERE Id_carrito = ? AND Id_productos = ?",
+                        "UPDATE detalles_de_Carrito SET Cantidad = Cantidad + ? WHERE Id_carrito = ? AND Id_producto = ?",
                         [Cantidad, Id_carrito, Id_producto],
                         () => res.json({ mensaje: "Cantidad actualizada" })
                     );
@@ -57,4 +57,28 @@ const AgregarAlCarrito = (req, res) => {
     }
 };
 
-module.exports = { AgregarAlCarrito };
+const verCarrito = (req, res) => {
+    const idUsuario = req.usuario.id;
+
+    const sql = `
+        SELECT 
+            Productos.Id_producto,
+            Productos.Nombre,
+            Productos.Precio,
+            Detalles_del_Carrito.Cantidad
+        FROM Carrito c
+        JOIN Detalles_del_Carrito ON Carrito.Id_carrito = Detalles_del_Carrito.Id_carrito
+        JOIN Productos ON Detalles_del_Carrito.Id_producto = Productos.Id_producto
+        WHERE Carrito.Id_usuario = ?
+    `;
+
+    db.all(sql, [idUsuario], (error, rows) => {
+        if (error) {
+            return res.status(500).json({ error: 'Error al obtener carrito' });
+        }
+
+        return res.json({ carrito: rows });
+    });
+};
+
+module.exports = { AgregarAlCarrito, verCarrito };
