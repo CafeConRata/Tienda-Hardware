@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { useNavigate, Link } from "react-router-dom";
-import "../style/Formularios.css";
+import { useNavigate } from "react-router-dom";
+import "../style/Catalogo.css";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
     const [Email, setEmail] = useState("");
@@ -21,7 +22,7 @@ export default function LoginForm() {
             });
 
             const { token, mensaje } = response.data;
-            localStorage.setItem("authToken", token); // 👈 clave consistente
+            localStorage.setItem("authToken", token);
 
             Swal.fire({
                 icon: "success",
@@ -29,7 +30,7 @@ export default function LoginForm() {
                 text: mensaje || "Inicio de sesión exitoso",
                 confirmButtonColor: "#3085d6",
             }).then(() => {
-                navigate("/Inicio");
+                navigate("/Inicio"); // Redirige a la ruta correcta
             });
         } catch (err) {
             setError(err.response?.data?.error || "Error al iniciar sesión");
@@ -77,4 +78,3 @@ export default function LoginForm() {
         </div>
     );
 }
-

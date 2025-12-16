@@ -18,6 +18,8 @@ function Layouts() {
                     <Route path="/Inicio" element={<Home />} />
                     <Route path="/RegistrarUser" element={<Register />} />
                     <Route path="/RegistrarProducto" element={<RegistrarProducto />} />
+                    <Route path="/LoginForm" element={<LoginForm />} />
+                    <Route path="/CatalogoPage" element={<CatalogoPage />} />
                     <Route path="/Carrito" element={<Cart />} />
                 </Routes>
             <Footer />
