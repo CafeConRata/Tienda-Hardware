@@ -27,14 +27,14 @@ export default function RegistrarProducto() {
 
         try {
             const data = new FormData();
-            data.append("nombre", formData.nombre);
-            data.append("descripcion", formData.descripcion);
-            data.append("precio", formData.precio);
-            data.append("stock", formData.stock);
-            data.append("imagen", imagen);
+            data.append("Nombre", formData.nombre);
+            data.append("Descripcion", formData.descripcion);
+            data.append("Precio", formData.precio);
+            data.append("Stock", formData.stock);
+            data.append("imagen", imagen);;
 
             const response = await axios.post(
-                "http://localhost:3001/cargar/CargarUnProducto",
+                "http://localhost:3000/cargar/CargarUnProducto",
                 data,
                 {
                     headers: {
