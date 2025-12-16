@@ -34,20 +34,20 @@ const AgregarAlCarrito = (req, res) => {
 
     function agregarDetalle(Id_carrito) {
         db.get(
-            "SELECT * FROM detalles_de_Carrito WHERE Id_carrito = ? AND Id_producto = ?",
+            "SELECT * FROM Detalles_del_Carrito WHERE Id_carrito = ? AND Id_producto = ?",
             [Id_carrito, Id_producto],
             (error, detalle) => {
                 if (error) return res.status(500).json({ error: "Error servidor" });
 
                 if (detalle) {
                     db.run(
-                        "UPDATE detalles_de_Carrito SET Cantidad = Cantidad + ? WHERE Id_carrito = ? AND Id_producto = ?",
+                        "UPDATE Detalles_del_Carrito SET Cantidad = Cantidad + ? WHERE Id_carrito = ? AND Id_producto = ?",
                         [Cantidad, Id_carrito, Id_producto],
                         () => res.json({ mensaje: "Cantidad actualizada" })
                     );
                 } else {
                     db.run(
-                        "INSERT INTO detalles_de_Carrito (Id_carrito, Id_productos, Cantidad) VALUES (?, ?, ?)",
+                        "INSERT INTO Detalles_del_Carrito (Id_carrito, Id_producto, Cantidad) VALUES (?, ?, ?)",
                         [Id_carrito, Id_producto, Cantidad],
                         () => res.json({ mensaje: "Producto agregado al carrito" })
                     );
@@ -66,7 +66,7 @@ const verCarrito = (req, res) => {
             Productos.Nombre,
             Productos.Precio,
             Detalles_del_Carrito.Cantidad
-        FROM Carrito c
+        FROM Carrito
         JOIN Detalles_del_Carrito ON Carrito.Id_carrito = Detalles_del_Carrito.Id_carrito
         JOIN Productos ON Detalles_del_Carrito.Id_producto = Productos.Id_producto
         WHERE Carrito.Id_usuario = ?

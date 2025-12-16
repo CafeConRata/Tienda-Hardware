@@ -22,7 +22,7 @@ App.use("/cargar", ProductoRouter);
 App.use('/upload', Express.static(path.join(__dirname, 'Upload')));
 
 const CarritoRouter = require('./src/Router/AgregarAlCarrito');
-App.use('/api/carrito', CarritoRouter);
+App.use('/api', CarritoRouter);
 
 
 
