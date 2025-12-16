@@ -112,8 +112,31 @@ const EliminarProducto = (req, res) => {
     });
 };
 
+const ObtenerProductos = (req, res) => {
+    const sql = `
+        SELECT 
+            Id_producto,
+            Nombre,
+            Descripcion,
+            Precio,
+            Stock,
+            Imagen
+        FROM Productos
+    `;
+
+    db.all(sql, [], (error, rows) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Error al obtener productos" });
+        }
+
+        res.json(rows);
+    });
+};
+
 module.exports = { 
      CargarProductos,
      ActualizarProducto,
-     EliminarProducto
+     EliminarProducto,
+     ObtenerProductos
     };
