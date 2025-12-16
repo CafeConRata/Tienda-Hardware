@@ -8,6 +8,7 @@ import './Layouts.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Pages/home.jsx';
 import LoginForm from './Pages/Login.jsx';
+import CatalogoPage from './Pages/CatalagoPage.jsx';
 
 function Layouts() {
     return (
@@ -18,6 +19,7 @@ function Layouts() {
                     <Route path="/RegistrarUser" element={<Register />} />
                     <Route path="/RegistrarProducto" element={<RegistrarProducto />} />
                     <Route path="/LoginForm" element={<LoginForm />} />
+                    <Route path="/CatalogoPage" element={<CatalogoPage />} />
                     <Route path="/Carrito" element={<Cart />} />
                 </Routes>
             <Footer />

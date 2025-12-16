@@ -3,12 +3,13 @@ const db = require('../DataBase/db');
 const AgregarAlCarrito = (req, res) => {
     const { Id_producto, Cantidad } = req.body;
     const Id_usuario = req.usuario.id; // desde JWT
+    console.log(req.body)
 
     if (!Id_producto || !Cantidad) {
         return res.status(400).json({ error: "Datos incompletos" });
     }
 
-    // 1. Buscar carrito
+    // // // 1. Buscar carrito
     db.get(
         "SELECT * FROM Carrito WHERE Id_usuario = ?",
         [Id_usuario],
@@ -18,7 +19,7 @@ const AgregarAlCarrito = (req, res) => {
             if (!carrito) {
                 // 2. Crear carrito
                 db.run(
-                    "INSERT INTO Carrito (Id_usuario, Fecha_Creacion) VALUES (?, datetime('now'))",
+                    "INSERT INTO Carrito (Id_usuario, Fecha_Creacion, Cantidad, Total) VALUES (?, datetime('now'))",
                     [Id_usuario],
                     function (error) {
                         if (error) return res.status(500).json({ error: "Error creando carrito" });
