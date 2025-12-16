@@ -9,7 +9,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Pages/home.jsx';
 import LoginForm from './Pages/Login.jsx';
 import CatalogoPage from './Pages/CatalagoPage.jsx';
-import LoginForm from './Pages/Login.jsx';
 
 function Layouts() {
     return (
