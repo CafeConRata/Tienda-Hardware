@@ -1,7 +1,6 @@
-import "../style/Cart.css"
+import "../style/Cart.css";
 
 function Cart({ items, onRemove, onUpdateQuantity, onClose }) {
-
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -27,26 +26,20 @@ function Cart({ items, onRemove, onUpdateQuantity, onClose }) {
             <div className="cart-items">
               {items.map(item => (
                 <div key={item.id} className="cart-item">
-                  
                   <div className="item-image">{item.image}</div>
-
                   <div className="item-details">
                     <h4>{item.name}</h4>
                     <p className="item-price">${item.price.toFixed(2)}</p>
                   </div>
-
                   <div className="item-quantity">
                     <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>−</button>
                     <span>{item.quantity}</span>
                     <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}>+</button>
                   </div>
-
                   <div className="item-total">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
-
                   <button className="remove-btn" onClick={() => onRemove(item.id)}>🗑️</button>
-
                 </div>
               ))}
             </div>
@@ -74,10 +67,9 @@ function Cart({ items, onRemove, onUpdateQuantity, onClose }) {
             </div>
           </>
         )}
-
       </div>
     </div>
   );
 }
 
-export default Cart
+export default Cart;

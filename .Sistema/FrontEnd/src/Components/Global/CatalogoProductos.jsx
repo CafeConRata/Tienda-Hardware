@@ -4,27 +4,23 @@ export default function CatalogoProductos({ productos }) {
     const agregarAlCarrito = async (producto) => {
         try {
             const token = localStorage.getItem("authToken");
-
             await axios.post(
                 "http://localhost:3000/api/carrito/agregar",
                 {
-                    productoId: 2,
+                    productoId: producto.Id,
                     cantidad: 1,
+                    nombre: producto.Nombre
                 },
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    headers: { Authorization: `Bearer ${token}` },
                 }
             );
-
-            alert("Producto agregado al carrito");
+            alert("Producto agregado al carrito ✅");
         } catch (error) {
             console.error("Error al agregar al carrito:", error);
-            alert("No se pudo agregar al carrito");
+            alert("No se pudo agregar al carrito ❌");
         }
     };
-
     return (
         <div className="catalogo-container">
             <div className="catalogo-grid">
