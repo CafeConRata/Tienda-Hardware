@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const upload = require('../Config/MulterConfig');
+const { verificarRol } = require('../Middlewares/roles');
 
 const {
     CargarProductos,
@@ -9,11 +10,16 @@ const {
     ObtenerProductos
 } = require('../Controller/CargarProductos');
 
-router.post('/CargarUnProducto', upload.single('imagen'), CargarProductos);
+router.post(
+    '/CargarUnProducto',
+     upload.single('imagen'),
+     verificarRol([1, 2]),
+     CargarProductos
+    );
 
-router.put('/productos/:id', upload.single('imagen'), ActualizarProducto);
+router.put('/productos/:id', upload.single('imagen'), verificarRol([1, 2]), ActualizarProducto);
 
-router.delete('/productos/:id', EliminarProducto);
+router.delete('/productos/:id', verificarRol([1]), EliminarProducto);
 
 router.get('/ObtenerProductos', ObtenerProductos)
 
